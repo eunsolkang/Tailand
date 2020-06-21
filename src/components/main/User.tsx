@@ -24,7 +24,8 @@ const User = () => {
     const {userList, handleRemove, onChange, input} = useUser();
     const router = useRouter();
     const [activePage, setActivePage] = useState(router.query.page ? router.query.page : 1 );
-
+    console.log(userList);
+    
     const search = useInput("search")
     if (!userList){
         return (

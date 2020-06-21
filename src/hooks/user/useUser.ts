@@ -16,6 +16,8 @@ export default function useUser(){
     const handleUserList = async() =>{
         try{
             const value = await getUserList();
+            console.log(value);
+            
             setUserList(value.data);
             
             

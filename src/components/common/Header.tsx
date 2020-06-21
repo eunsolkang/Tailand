@@ -57,6 +57,7 @@ function Header() {
                     <Link className="nav" to="/user">회원관리</Link>
                     <Link className="nav" to="/post">글 목록</Link>
                     <Link className="nav" to="/category">카테고리</Link>
+                    <Link className="nav" to="/advert">광고관리</Link>
                 </nav>
             </Wrapper>
         </HeaderBlock>

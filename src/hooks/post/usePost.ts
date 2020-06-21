@@ -17,20 +17,28 @@ export default function usePost(){
         category : '',
         subCategory : '',
         img : '',
-
+        advert : false,
+        advertPosition : '',
+        isSpecial : false
     })
-    const handleCreatePost = async(title, content, subCategory, img) => {
+    const handleCreatePost = async(title, content, subCategory, img, advert, isSpecial, advertPosition) => {
         try{
             const post = new FormData();
             post.append('title', title);
             post.append('content', content);
             post.append('categoryId', subCategory);
             post.append('userId', "1");
+            post.append('isSpecial', isSpecial);
+
+            if ( advert ){
+                post.append('isAdvertising', advertPosition);
+            }   
+
             for(let i=0; i<img.length; i++) {post.append('img', img[i])}
 
-            for (var key of post.keys()) {
+            for (var value of post.values()) {
 
-                console.log(key);
+                console.log(value);
               
             }
             console.log(title, content, subCategory, img);
@@ -110,7 +118,16 @@ export default function usePost(){
             [name] : value
         })
     }
-    const onChangeDrop = (e, {name, value} : any)  => {
+    const onChangeDrop = (e, {name, value, checked, type} : any)  => {
+        console.log(type);
+        
+        if ( type === 'checkbox'){
+            setInput({
+                ...input,
+                [name] : checked
+            })
+            return;
+        }
         setInput({
             ...input,
             [name] : value

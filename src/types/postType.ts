@@ -26,4 +26,6 @@ export interface Post extends Base {
     images : [],
     likeUser : [],
     disLikeUser : [],
+    isAdvertising : string,
+    isSpecial : boolean
 }

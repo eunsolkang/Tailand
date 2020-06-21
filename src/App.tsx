@@ -6,6 +6,7 @@ import PostListPage from './pages/PostListPage'
 import PostPage from './pages/PostPage';
 import CategoryPage from './pages/CategoryPage';
 import SubCategoryPage from './pages/SubCategoryPage';
+import AdvertPage from './pages/AdvertPage';
 
 const App: React.FC = () => {
   return (
@@ -17,6 +18,7 @@ const App: React.FC = () => {
       <Route exact component={PostPage} path='/post/view/:id'></Route>
       <Route exact component={CategoryPage} path='/category'></Route>
       <Route exact component={SubCategoryPage} path='/category/:id'></Route>
+      <Route exact component={AdvertPage} path='/advert'></Route>
     </div>
   );
 }

@@ -23,11 +23,22 @@ const stateOptions = [
         text : '치앙마이',
         value : '치앙마이'
     }
+];
+const positionOptions = [
+    {
+        key : 'c',
+        text : '위',
+        value : 'top'
+    },
+    {
+        key : 'd',
+        text : '아래',
+        value : 'bottom'
+    }
 ]
 const Post = () => {
     const {post, isUpdate, handleRemove, onChangeDrop, input, onChange, handleCreatePost, handleUpdate} = usePost();
-    
-    
+
     const {categories} = useCategory();
     const {subCategories, handleSubCategoryList} = useSubCategory();
 
@@ -68,9 +79,17 @@ const Post = () => {
         <PostBlock>
             <Form>
                 <Form.Input value={input?.title} label="제목" onChange={onChange} name="title"/>
+                <Form.Checkbox onChange={onChangeDrop} name="advert" label="광고"></Form.Checkbox>
+                {
+                    input.advert && (
+                        <Form.Dropdown placeholder='광고위치 선택' selection options={positionOptions} label="광고 위치" onChange={onChangeDrop} name="advertPosition"  />
+                    )
+                }
                 <Form.Dropdown placeholder='지역선택' selection options={stateOptions} label="지역" onChange={onChangeDrop} name="local"  />
+
                 { input.local && <Form.Dropdown placeholder='State' selection options={categoryList} label="메인 카테고리" onChange={onChangeDrop} name="category" />}
                 { input.category && (subCategoryList?.length !== 0 ? (<Form.Dropdown placeholder='State' selection options={subCategoryList} label="세부 카테고리" name="subCategory" onChange={onChangeDrop}/> ): "하위 카테고리 없습니다!")  }
+                <Form.Checkbox label="추천 게시물" name="isSpecial" onChange={onChangeDrop}></Form.Checkbox>
                 <Form.TextArea 
                     className="content"
                     value={input?.content} 
@@ -94,7 +113,7 @@ const Post = () => {
                 ) :
                 (
                     <Form.Group inline >
-                        <Form.Button primary onClick={()=>handleCreatePost(input.title, input.content, input.subCategory, input.img)}>등록</Form.Button>    
+                        <Form.Button primary onClick={()=>handleCreatePost(input.title, input.content, input.subCategory, input.img, input.advert, input.isSpecial, input.advertPosition)}>등록</Form.Button>    
                     </Form.Group>
                 )
                 }

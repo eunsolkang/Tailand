@@ -24,4 +24,8 @@ export const getSubCategoryList = ({parents}) => api.get(`sub-category?parents=$
 export const createSubCategory = ({category}) => api.post(`sub-category/`, category);
 export const deleteSubCategory = ({id}) => api.delete(`sub-category/${id}`);
 
+export const createAdvert = ({advert}) => api.post(`ad/`, advert);
+export const getAdvertList = () => api.get(`ad/`);
+export const deleteAdvert = ({id}) => api.delete(`ad/${id}`);
+
 

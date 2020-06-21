@@ -7,6 +7,7 @@ export interface Category extends Base {
     icon : string,
     posts : [],
     division : string,
+    content : string,
     name: string,
 }
 export interface SubCategory extends Base {

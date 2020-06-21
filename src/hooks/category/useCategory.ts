@@ -6,7 +6,8 @@ import { useRouter } from '../common/useRouter';
 
 export default function useCategory() {    
     const [input, setInput] = useState({
-        name : ''
+        name : '',
+        content : ''
     });
     const [categories, setCategories] = useState<[Category]>();
     const [update, setUpdate] = useState(false);
@@ -27,14 +28,14 @@ export default function useCategory() {
             [name] : value
         })
     }
-    const handleCreateCategory = async(name) => {
+    const handleCreateCategory = async(name, content) => {
         try{
             console.log(router.query.active );
             
             const category = {
                 division : router.query.active === "0" ? "방콕" : "치앙마이",
                 name : name,
-                content : 'category'
+                content : content
             }
             await createCategory({
                 category
