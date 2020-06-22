@@ -19,7 +19,9 @@ export default function usePost(){
         img : '',
         advert : false,
         advertPosition : '',
-        isSpecial : false
+        isSpecial : false,
+        images : [],
+        id : ''
     })
     const handleCreatePost = async(title, content, subCategory, img, advert, isSpecial, advertPosition) => {
         try{
@@ -36,7 +38,7 @@ export default function usePost(){
 
             for(let i=0; i<img.length; i++) {post.append('img', img[i])}
 
-            for (var value of post.values()) {
+            for (var value of post.values() ) {
 
                 console.log(value);
               
@@ -58,6 +60,8 @@ export default function usePost(){
             const data = await getPost({id});
             setInput({
                 ...data.data,
+                advert : data.data.isAdvertising !== "none",
+                advertPosition : (data.data.isAdvertising !== "none") && data.data.isAdvertising, 
                 subCategory : data.data.categoryid,
                 category : data.data.category.parents.id
             });
@@ -69,6 +73,8 @@ export default function usePost(){
         try{
             const isRemove = window.confirm('정말로 이 글을 삭제하시겠습니까?');
             if (isRemove){
+                console.log(id);
+                
                 await removePost({id});
                 router.history.push('/post/')
             }

@@ -44,7 +44,7 @@ const Post = () => {
 
 
     console.log(input);
-    const imgList = post?.images.map((img)=>{
+    const imgList = input?.images.map((img)=>{
         return (
             <Image src={`${process.env.REACT_APP_SERVER_URL}/${img}`} />
         )
@@ -79,17 +79,17 @@ const Post = () => {
         <PostBlock>
             <Form>
                 <Form.Input value={input?.title} label="제목" onChange={onChange} name="title"/>
-                <Form.Checkbox onChange={onChangeDrop} name="advert" label="광고"></Form.Checkbox>
+                <Form.Checkbox checked={input.advert} onChange={onChangeDrop} name="advert" label="광고"></Form.Checkbox>
                 {
                     input.advert && (
-                        <Form.Dropdown placeholder='광고위치 선택' selection options={positionOptions} label="광고 위치" onChange={onChangeDrop} name="advertPosition"  />
+                        <Form.Dropdown value={input.advertPosition} placeholder='광고위치 선택' selection options={positionOptions} label="광고 위치" onChange={onChangeDrop} name="advertPosition"  />
                     )
                 }
-                <Form.Dropdown placeholder='지역선택' selection options={stateOptions} label="지역" onChange={onChangeDrop} name="local"  />
+                { !input.advert && <Form.Dropdown placeholder='지역선택' selection options={stateOptions} label="지역" onChange={onChangeDrop} name="local"  /> }
 
-                { input.local && <Form.Dropdown placeholder='State' selection options={categoryList} label="메인 카테고리" onChange={onChangeDrop} name="category" />}
-                { input.category && (subCategoryList?.length !== 0 ? (<Form.Dropdown placeholder='State' selection options={subCategoryList} label="세부 카테고리" name="subCategory" onChange={onChangeDrop}/> ): "하위 카테고리 없습니다!")  }
-                <Form.Checkbox label="추천 게시물" name="isSpecial" onChange={onChangeDrop}></Form.Checkbox>
+                { !input.advert && input.local && <Form.Dropdown placeholder='State' selection options={categoryList} label="메인 카테고리" onChange={onChangeDrop} name="category" />}
+                { !input.advert && input.category && (subCategoryList?.length !== 0 ? (<Form.Dropdown placeholder='State' selection options={subCategoryList} label="세부 카테고리" name="subCategory" onChange={onChangeDrop}/> ): "하위 카테고리 없습니다!")  }
+                <Form.Checkbox checked={input.isSpecial} label="추천 게시물" name="isSpecial" onChange={onChangeDrop}></Form.Checkbox>
                 <Form.TextArea 
                     className="content"
                     value={input?.content} 
@@ -107,7 +107,7 @@ const Post = () => {
                 {
                 isUpdate ? (
                     <Form.Group inline >
-                        <Form.Button color="red" onClick={()=>handleRemove(post?.id)} >삭제</Form.Button>
+                        <Form.Button color="red" onClick={()=>handleRemove(input?.id)} >삭제</Form.Button>
                         <Form.Button primary onClick={() => handleUpdate(input.title, input.content, input.subCategory, input.img)} >수정</Form.Button>    
                     </Form.Group>
                 ) :
