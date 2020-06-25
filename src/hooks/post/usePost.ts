@@ -30,10 +30,11 @@ export default function usePost(){
             post.append('content', content);
             post.append('categoryId', subCategory);
             post.append('userId', "1");
-            post.append('isSpecial', isSpecial);
+            if (isSpecial){
+                post.append('isSpecial', local);
+            }
 
             if ( advert ){
-                post.append('avert', local)
                 post.append('isAdvertising', advertPosition);
             }   
 
@@ -58,16 +59,31 @@ export default function usePost(){
     }
     const handleGetPost = async({id}) =>{
         try{
-   
+            console.log(id);
+            
             
             const data = await getPost({id});
-            setInput({
-                ...data.data,
-                advert : data.data.isAdvertising !== "none",
-                advertPosition : (data.data.isAdvertising !== "none") && data.data.isAdvertising, 
-                subCategory : data.data.categoryid,
-                category : data.data.category.parents.id
-            });
+            
+            
+            if ( data.data.isAdvertising === "none" )
+            {
+                setInput({
+                    ...data.data,
+                    subCategory : data.data.category.id,
+                    category : data.data.category.parents.id
+                })
+            }
+            else{
+                console.log('광고');
+                
+                setInput({
+                    ...data.data,
+                    category : null,
+                    subCategory : null,
+                    advert : data.data.isAdvertising !== "none",
+                    advertPosition : (data.data.isAdvertising !== "none") && data.data.isAdvertising, 
+                });
+            }
         }catch(e){
             console.log(e);
         }
@@ -159,6 +175,8 @@ export default function usePost(){
     useEffect(
         ()=>{
             if ( router.match.params.id ){
+                console.log(router.match.params.id);
+                
                 
                 handleGetPost({id : router.match.params.id });
                 setIsUpdate(true)

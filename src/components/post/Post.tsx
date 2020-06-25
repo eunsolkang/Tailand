@@ -70,6 +70,7 @@ const Post = () => {
     })
 
     useEffect(() => {
+        
         if(input.category){
             handleSubCategoryList({parents : input?.category})
         }
