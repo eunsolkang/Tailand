@@ -39,6 +39,7 @@ const positionOptions = [
 const Post = () => {
     const {post, isUpdate, handleRemove, onChangeDrop, input, onChange, handleCreatePost, handleUpdate} = usePost();
 
+    
     const {categories} = useCategory();
     const {subCategories, handleSubCategoryList} = useSubCategory();
 
@@ -85,7 +86,7 @@ const Post = () => {
                         <Form.Dropdown value={input.advertPosition} placeholder='광고위치 선택' selection options={positionOptions} label="광고 위치" onChange={onChangeDrop} name="advertPosition"  />
                     )
                 }
-                { !input.advert && <Form.Dropdown placeholder='지역선택' selection options={stateOptions} label="지역" onChange={onChangeDrop} name="local"  /> }
+                <Form.Dropdown placeholder='지역선택' selection options={stateOptions} label="지역" onChange={onChangeDrop} name="local"  />
 
                 { !input.advert && input.local && <Form.Dropdown placeholder='State' selection options={categoryList} label="메인 카테고리" onChange={onChangeDrop} name="category" />}
                 { !input.advert && input.category && (subCategoryList?.length !== 0 ? (<Form.Dropdown placeholder='State' selection options={subCategoryList} label="세부 카테고리" name="subCategory" onChange={onChangeDrop}/> ): "하위 카테고리 없습니다!")  }
@@ -113,7 +114,7 @@ const Post = () => {
                 ) :
                 (
                     <Form.Group inline >
-                        <Form.Button primary onClick={()=>handleCreatePost(input.title, input.content, input.subCategory, input.img, input.advert, input.isSpecial, input.advertPosition)}>등록</Form.Button>    
+                        <Form.Button primary onClick={()=>handleCreatePost(input.title, input.content, input.subCategory, input.img, input.advert, input.isSpecial, input.advertPosition, input.local)}>등록</Form.Button>    
                     </Form.Group>
                 )
                 }

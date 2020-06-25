@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette'
 import Responsive from '../common/Responsive';
-import { Dimmer, Loader, Table, Button } from 'semantic-ui-react';
+import { Dimmer, Loader, Table, Button, Pagination } from 'semantic-ui-react';
 import usePostList from '../../hooks/post/usePostList';
 import {Link} from 'react-router-dom';
 const PostListBlock = styled(Responsive)`
@@ -11,11 +11,15 @@ const PostListBlock = styled(Responsive)`
         margin-top : .25rem;
         margin-bottom : .5rem;
     }
+    .page{
+        display: flex;
+        justify-content : center
+    }
 `;
 
 const PostList = () => {
 
-    const {postList} = usePostList();
+    const {postList, handlePaginationChange, activePage} = usePostList();
     if (!postList){
         return (
             <PostListBlock>
@@ -25,7 +29,7 @@ const PostList = () => {
             </PostListBlock>
         )
     }
-    const posts = postList.map((post, i)=>{
+    const posts = postList?.content.map((post, i)=>{
         const {title, author, category, id} = post
         return (
             <Table.Row key={i}>
@@ -41,7 +45,7 @@ const PostList = () => {
     
     return (
         <PostListBlock>
-            <Link to="post/view/"><Button primary floated="right" className="post-btn">글 작성</Button></Link>
+            <Link to="/post/view/"><Button primary floated="right" className="post-btn">글 작성</Button></Link>
             <Table celled>
                 <Table.Header>
                     <Table.Row>
@@ -54,6 +58,13 @@ const PostList = () => {
                     {posts}
                 </Table.Body>
             </Table>
+            <div className="page">
+                <Pagination
+                    activePage={activePage}
+                    onPageChange={handlePaginationChange}
+                    totalPages={postList.totalPages}
+                />
+            </div>
 
         </PostListBlock>
     )

@@ -3,16 +3,18 @@ import  {getPostList, removeUser} from '../../lib/api'
 import * as Type from '../../types/postType';
 export default function usePost(){
 
-    const [postList, setPostList] = useState<[Type.Post]>();
+    const [postList, setPostList] = useState<Type.PostList>();
     const [remove, setRemove] = useState(false);
     const [update, setUpdate] = useState(false);
-
+    const [activePage, setActivePage] = useState(0);
     const [input, setInput] = useState({
         
     })
-    const handlePostList = async() =>{
+    const handlePostList = async({activePage}) =>{
         try{
-            const value = await getPostList();
+            const value = await getPostList({page : activePage});
+            console.log(value.data);
+            
             setPostList(value.data);
         }catch(e){
             console.log(e);
@@ -37,20 +39,24 @@ export default function usePost(){
             [name] : value
         })
     }
-
+    const handlePaginationChange = (e, {activePage} : any) => {
+        setActivePage(activePage)
+    }
     useEffect(
         ()=>{
-            handlePostList();
-        }, []
+            console.log(activePage);
+            
+            handlePostList({activePage : activePage - 1});
+        }, [activePage]
     )
     useEffect(
         ()=>{
-            handlePostList();
+            handlePostList({activePage});
             setRemove(false);
             setUpdate(false);
         },[remove, update]
     )
     return {
-        postList, handleRemove, onChange, input
+        postList, handleRemove, onChange, input, handlePaginationChange, activePage
     }
 }

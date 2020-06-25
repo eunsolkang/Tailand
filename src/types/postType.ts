@@ -29,3 +29,15 @@ export interface Post extends Base {
     isAdvertising : string,
     isSpecial : boolean
 }
+
+export interface PostList extends Base {
+    content : [Post],
+    empty : boolean,
+    first : boolean,
+    last : boolean,
+    number : number,
+    numberOfElements : number,
+    size : number,
+    totalElements : number,
+    totalPages : number
+}

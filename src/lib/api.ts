@@ -10,7 +10,7 @@ const api = axios.create({
 export const getUserList = () => api.get(`user`);
 export const removeUser = ({id}) =>  api.delete(`user/${id}`);
 
-export const getPostList = () => api.get(`post/`);
+export const getPostList = ({page}) => api.get(`post?page=${page}`);
 export const getPost = ({id}) => api.get(`post/${id}`);
 export const createPost = ({post}) => api.post(`post/`, post);
 export const updatePost = ({id, post}) => api.put(`post/${id}`, post);

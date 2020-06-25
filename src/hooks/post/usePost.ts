@@ -21,9 +21,9 @@ export default function usePost(){
         advertPosition : '',
         isSpecial : false,
         images : [],
-        id : ''
+        id : '',
     })
-    const handleCreatePost = async(title, content, subCategory, img, advert, isSpecial, advertPosition) => {
+    const handleCreatePost = async(title, content, subCategory, img, advert, isSpecial, advertPosition, local) => {
         try{
             const post = new FormData();
             post.append('title', title);
@@ -33,6 +33,7 @@ export default function usePost(){
             post.append('isSpecial', isSpecial);
 
             if ( advert ){
+                post.append('avert', local)
                 post.append('isAdvertising', advertPosition);
             }   
 
@@ -57,6 +58,8 @@ export default function usePost(){
     }
     const handleGetPost = async({id}) =>{
         try{
+   
+            
             const data = await getPost({id});
             setInput({
                 ...data.data,
@@ -148,6 +151,7 @@ export default function usePost(){
                 setIsUpdate(true);
             }
             else{
+                console.log('????');
                 setIsUpdate(false)
             }
         }, []
