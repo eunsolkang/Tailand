@@ -22,18 +22,23 @@ export default function usePost(){
         isSpecial : false,
         images : [],
         id : '',
+        type : false
     })
-    const handleCreatePost = async(title, content, subCategory, img, advert, isSpecial, advertPosition, local) => {
+    const handleCreatePost = async(title, content, subCategory, img, advert, isSpecial, advertPosition, local, type) => {
         try{
             const post = new FormData();
             post.append('title', title);
             post.append('content', content);
             post.append('categoryId', subCategory);
             post.append('userId', "1");
+            if ( type ) {
+                console.log('타입 추가');
+                
+                post.append('type', "공지");
+            }
             if (isSpecial){
                 post.append('isSpecial', local);
             }
-
             if ( advert ){
                 post.append('isAdvertising', advertPosition);
             }   
@@ -64,6 +69,7 @@ export default function usePost(){
             
             const data = await getPost({id});
             
+            console.log(data);
             
             if ( data.data.isAdvertising === "none" )
             {

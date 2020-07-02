@@ -81,8 +81,9 @@ const Post = () => {
         <PostBlock>
             <Form>
                 <Form.Input value={input?.title} label="제목" onChange={onChange} name="title"/>
-                <Form.Checkbox checked={input.advert} onChange={onChangeDrop} name="advert" label="광고"></Form.Checkbox>
-                {
+                { !input.advert && <Form.Checkbox checked={input.type} label="공지사항" name="type" onChange={onChangeDrop}></Form.Checkbox>}
+                { !input.type && <Form.Checkbox checked={input.advert} onChange={onChangeDrop} name="advert" label="광고"></Form.Checkbox> }
+                { 
                     input.advert && (
                         <Form.Dropdown value={input.advertPosition} placeholder='광고위치 선택' selection options={positionOptions} label="광고 위치" onChange={onChangeDrop} name="advertPosition"  />
                     )
@@ -115,7 +116,7 @@ const Post = () => {
                 ) :
                 (
                     <Form.Group inline >
-                        <Form.Button primary onClick={()=>handleCreatePost(input.title, input.content, input.subCategory, input.img, input.advert, input.isSpecial, input.advertPosition, input.local)}>등록</Form.Button>    
+                        <Form.Button primary onClick={()=>handleCreatePost(input.title, input.content, input.subCategory, input.img, input.advert, input.isSpecial, input.advertPosition, input.local, input.type)}>등록</Form.Button>    
                     </Form.Group>
                 )
                 }
