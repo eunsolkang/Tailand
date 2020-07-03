@@ -92,7 +92,9 @@ const Post = () => {
 
                 { !input.advert && input.local && <Form.Dropdown placeholder='State' selection options={categoryList} label="메인 카테고리" onChange={onChangeDrop} name="category" />}
                 { !input.advert && input.category && (subCategoryList?.length !== 0 ? (<Form.Dropdown placeholder='State' selection options={subCategoryList} label="세부 카테고리" name="subCategory" onChange={onChangeDrop}/> ): "하위 카테고리 없습니다!")  }
-                <Form.Checkbox checked={input.isSpecial} label="추천 게시물" name="isSpecial" onChange={onChangeDrop}></Form.Checkbox>
+
+
+                <Form.Checkbox checked={input.isSpecial !== "none"  as any ? true : false} label="추천 게시물" name="isSpecial" onChange={onChangeDrop}></Form.Checkbox>
                 <Form.TextArea 
                     className="content"
                     value={input?.content} 

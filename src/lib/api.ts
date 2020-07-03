@@ -8,7 +8,7 @@ const api = axios.create({
 //유저관리
 
 export const getUserList = () => api.get(`user`);
-export const removeUser = ({id}) =>  api.delete(`user/${id}`);
+export const removeUser = (id) =>  api.delete(`user/${id}`);
 
 export const getPostList = ({page}) => api.get(`post?page=${page}`);
 export const getPost = ({id}) => api.get(`post/${id}`);

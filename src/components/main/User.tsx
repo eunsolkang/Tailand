@@ -54,6 +54,8 @@ const User = () => {
     const filterUser = userList?.filter(user => user?.username?.indexOf(search.value.trim()) !== -1);
     const users = filterUser?.map((user, i)=>{
         const {username, profile } = user;
+        console.log();
+        
         
         if(((activePage - 1) * 13 <= i && i<= ((activePage - 1) * 13) + 13)){
             return(
@@ -63,7 +65,7 @@ const User = () => {
                     </List.Content>
                     {username}
                     <List.Content floated='right'>
-                        <Button onClick={()=>onRemove(user[0])}>삭제</Button>
+                        <Button onClick={()=>onRemove(user?.id)}>삭제</Button>
                     </List.Content>
                 </List.Item>
             )

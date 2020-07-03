@@ -26,14 +26,19 @@ export default function usePost(){
     })
     const handleCreatePost = async(title, content, subCategory, img, advert, isSpecial, advertPosition, local, type) => {
         try{
+
+            if (!advert){
+                if (!subCategory){
+                    alert('카테고리 선택해주세요'); 
+                    return;
+                }
+            }
             const post = new FormData();
             post.append('title', title);
             post.append('content', content);
             post.append('categoryId', subCategory);
             post.append('userId', "1");
             if ( type ) {
-                console.log('타입 추가');
-                
                 post.append('type', "공지");
             }
             if (isSpecial){
