@@ -36,7 +36,9 @@ export default function usePost(){
             const post = new FormData();
             post.append('title', title);
             post.append('content', content);
-            post.append('categoryId', subCategory);
+            if ( !advert ){
+                post.append('categoryId', subCategory);
+            } 
             post.append('userId', "1");
             if ( type ) {
                 post.append('type', "공지");
@@ -81,7 +83,9 @@ export default function usePost(){
                 setInput({
                     ...data.data,
                     subCategory : data.data.category.id,
-                    category : data.data.category.parents.id
+                    category : data.data.category.parents.id,
+                    type : data.data.type === 'none' ? false : true,
+                    isSpecial : data.data.isSpecial === 'none' ? false : true,
                 })
             }
             else{
@@ -91,6 +95,8 @@ export default function usePost(){
                     ...data.data,
                     category : null,
                     subCategory : null,
+                    type : data.data.type === 'none' ? false : true,
+                    isSpecial : data.data.isSpecial === 'none' ? false : true,
                     advert : data.data.isAdvertising !== "none",
                     advertPosition : (data.data.isAdvertising !== "none") && data.data.isAdvertising, 
                 });

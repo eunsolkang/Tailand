@@ -82,19 +82,19 @@ const Post = () => {
             <Form>
                 <Form.Input value={input?.title} label="제목" onChange={onChange} name="title"/>
                 { !input.advert && <Form.Checkbox checked={input.type} label="공지사항" name="type" onChange={onChangeDrop}></Form.Checkbox>}
-                { !input.type && <Form.Checkbox checked={input.advert} onChange={onChangeDrop} name="advert" label="광고"></Form.Checkbox> }
+                { (!input.type || input.type as any === 'none')&& <Form.Checkbox checked={input.advert} onChange={onChangeDrop} name="advert" label="광고"></Form.Checkbox> }
                 { 
                     input.advert && (
                         <Form.Dropdown value={input.advertPosition} placeholder='광고위치 선택' selection options={positionOptions} label="광고 위치" onChange={onChangeDrop} name="advertPosition"  />
                     )
                 }
-                <Form.Dropdown placeholder='지역선택' selection options={stateOptions} label="지역" onChange={onChangeDrop} name="local"  />
+                {!isUpdate && <Form.Dropdown placeholder='지역선택' selection options={stateOptions} label="지역" onChange={onChangeDrop} name="local"  />}
 
-                { !input.advert && input.local && <Form.Dropdown placeholder='State' selection options={categoryList} label="메인 카테고리" onChange={onChangeDrop} name="category" />}
-                { !input.advert && input.category && (subCategoryList?.length !== 0 ? (<Form.Dropdown placeholder='State' selection options={subCategoryList} label="세부 카테고리" name="subCategory" onChange={onChangeDrop}/> ): "하위 카테고리 없습니다!")  }
+                { !isUpdate && !input.advert && input.local && <Form.Dropdown placeholder='State' selection options={categoryList} label="메인 카테고리" onChange={onChangeDrop} name="category" />}
+                { !isUpdate && !input.advert && input.category && (subCategoryList?.length !== 0 ? (<Form.Dropdown placeholder='State' selection options={subCategoryList} label="세부 카테고리" name="subCategory" onChange={onChangeDrop}/> ): "하위 카테고리 없습니다!")  }
 
 
-                <Form.Checkbox checked={input.isSpecial !== "none"  as any ? true : false} label="추천 게시물" name="isSpecial" onChange={onChangeDrop}></Form.Checkbox>
+                <Form.Checkbox checked={input.isSpecial} label="추천 게시물" name="isSpecial" onChange={onChangeDrop}></Form.Checkbox>
                 <Form.TextArea 
                     className="content"
                     value={input?.content} 
