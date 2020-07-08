@@ -113,7 +113,7 @@ const Post = () => {
                 isUpdate ? (
                     <Form.Group inline >
                         <Form.Button color="red" onClick={()=>handleRemove(input?.id)} >삭제</Form.Button>
-                        <Form.Button primary onClick={() => handleUpdate(input.title, input.content, input.subCategory, input.img)} >수정</Form.Button>    
+                        <Form.Button primary onClick={() => handleUpdate(input.title, input.content, input.subCategory, input.img, input.isSpecial)} >수정</Form.Button>    
                     </Form.Group>
                 ) :
                 (

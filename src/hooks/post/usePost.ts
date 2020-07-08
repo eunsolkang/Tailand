@@ -50,7 +50,7 @@ export default function usePost(){
                 post.append('isAdvertising', advertPosition);
             }   
 
-            for(let i=0; i<img.length; i++) {post.append('img', img[i])}
+            for(let i=0; i<img.length; i++) { post.append('img', img[i]) }
 
             for (var value of post.values() ) {
 
@@ -85,7 +85,7 @@ export default function usePost(){
                     subCategory : data.data.category.id,
                     category : data.data.category.parents.id,
                     type : data.data.type === 'none' ? false : true,
-                    isSpecial : data.data.isSpecial === 'none' ? false : true,
+                    isSpecial : (data.data.isSpecial === 'none' || data.data.isSpecial === 'false' ) ? false : true,
                 })
             }
             else{
@@ -119,7 +119,7 @@ export default function usePost(){
             console.log(e);
         }
     }
-    const handleUpdate = async(title, content, subCategory, img) =>{
+    const handleUpdate = async(title, content, subCategory, img, isSpecial) =>{
         try{
             const isRemove = window.confirm('글을 수정하시겠습니까?');
             if (isRemove){
@@ -133,9 +133,12 @@ export default function usePost(){
                 // if (img){
                 //     for(let i=0; i<img.length; i++) {post.append('img', img[i])}
                 // }
+                console.log("추천 게시물 : ", isSpecial);
+                
                 const post = {
                     title,
                     content,
+                    isSpecial
                 }
 
                 await updatePost({id : router.match.params.id, post});
