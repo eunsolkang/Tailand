@@ -119,7 +119,7 @@ export default function usePost(){
             console.log(e);
         }
     }
-    const handleUpdate = async(title, content, subCategory, img, isSpecial) =>{
+    const handleUpdate = async(title, content, subCategory, img, isSpecial, local) =>{
         try{
             const isRemove = window.confirm('글을 수정하시겠습니까?');
             if (isRemove){
@@ -133,12 +133,24 @@ export default function usePost(){
                 // if (img){
                 //     for(let i=0; i<img.length; i++) {post.append('img', img[i])}
                 // }
+                let isSpecialData;
+
+                if ( !local ){
+                    alert('추천게시물을 올릴 지역을 선택해주세요!')
+                }
+
+                if ( isSpecial ){
+                    isSpecialData = local
+                }
+                else {
+                    isSpecialData = false
+                }
                 console.log("추천 게시물 : ", isSpecial);
                 
                 const post = {
                     title,
                     content,
-                    isSpecial
+                    isSpecial : isSpecialData
                 }
 
                 await updatePost({id : router.match.params.id, post});
